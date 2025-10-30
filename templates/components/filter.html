@@ -1,0 +1,55 @@
+<section class="filters-section">
+  <div class="container filters-flex">
+    
+    <!-- Language Filter -->
+    <div class="filter-group">
+      <h3>Filter by Language</h3>
+      <div class="filter-buttons">
+        <a href="{% url 'book_list' %}">
+          <button class="filter-btn {% if not selected_language %}active{% endif %}">All</button>
+        </a>
+        {% for language in languages %}
+          <a href="?language={{ language.pk }}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}">
+            <button class="filter-btn {% if selected_language == language.pk %}active{% endif %}">
+              {{ language.name }}
+            </button>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="filter-group">
+      <h3>Filter by Genre</h3>
+      <div class="filter-buttons">
+        <a href="{% url 'book_list' %}">
+          <button class="filter-btn {% if not selected_category %}active{% endif %}">All</button>
+        </a>
+        {% for category in categories %}
+          <a href="?category={{ category.pk }}{% if selected_language %}&language={{ selected_language }}{% endif %}{% if search_query %}&search={{ search_query }}{% endif %}">
+            <button class="filter-btn {% if selected_category == category.pk %}active{% endif %}">
+              {{ category.name }}
+            </button>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Search Filter -->
+    <div class="search-container nav-search filter-group">
+      <h3>Search</h3>
+      <form method="get">
+        {% if selected_language %}
+          <input type="hidden" name="language" value="{{ selected_language }}">
+        {% endif %}
+        {% if selected_category %}
+          <input type="hidden" name="category" value="{{ selected_category }}">
+        {% endif %}
+        <input type="text" name="search" id="navSearchInput" class="search-bar"
+               placeholder="Search books..." value="{{ search_query }}">
+        <button type="submit" class="search-icon"></button>
+      </form>
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,18 @@
+<div class="book-detail-container">
+  <div class="book-cover-large">
+    <img src="{{ book.image.url }}" alt="{{ book.name }}">
+  </div>
+
+  <div class="book-detail-info">
+    <h1 class="book-title">{{ book.name }}</h1>
+    <p class="book-author">by {{ book.author }}</p>
+
+    <div class="book-meta">
+      <span class="book-tag">{{ book.language.name }}</span>
+      <span class="book-tag">{{ book.category.name }}</span>
+      <span class="book-tag">Published: {{ book.published }}</span>
+    </div>
+
+    <p class="book-description">{{ book.description }}</p>
+  </div>
+</div>

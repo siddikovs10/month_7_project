@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="book-detail-section">
+  <div class="container">
+    <a href="{% url 'book_list' %}" class="back-button">← Back to All Books</a>
+    {% include 'components/detail.html' %}
+    {% include 'components/comments.html' %}
+  </div>
+</section>
+{% endblock %}

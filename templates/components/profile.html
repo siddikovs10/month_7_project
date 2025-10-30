@@ -1,0 +1,179 @@
+<section class="profile-section">
+  <div class="container">
+    <div class="profile-header">
+      <h1>My Profile</h1>
+      <p>Manage your account and see your recent comments</p>
+    </div>
+
+    <div class="profile-grid">
+      <!-- Edit profile -->
+      <div class="profile-card">
+        <h2>Account Settings</h2>
+        <form method="post" class="profile-form">
+          {% csrf_token %}
+          {% if messages %}
+            <div class="messages">
+              {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+              {% endfor %}
+            </div>
+          {% endif %}
+
+          <label>Username</label>
+          <input type="text" name="username" value="{{ user.username }}" class="form-input" required>
+
+          <label>Email</label>
+          <input type="email" name="email" value="{{ user.email }}" class="form-input">
+
+          <label>New Password</label>
+          <input type="password" name="password" placeholder="Enter new password" class="form-input">
+
+          <button type="submit" class="btn btn-primary mt-2">Save Changes</button>
+        </form>
+      </div>
+
+      <!-- User comments -->
+      <div class="profile-card">
+        <h2>My Recent Comments</h2>
+        <div class="comments-list">
+          {% if comments %}
+            {% for comment in comments %}
+              <div class="comment-item">
+                <p class="comment-text">"{{ comment.text }}"</p>
+                <p class="comment-meta">
+                  On <strong>{{ comment.book.name }}</strong> — {{ comment.created_at|date:"M d, Y H:i" }}
+                </p>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p class="no-comments">You haven't posted any comments yet.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.profile-section { padding: 60px 0; }
+.profile-header { text-align: center; margin-bottom: 40px; }
+.profile-header h1 { font-size: 2rem; margin-bottom: 10px; }
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 30px;
+}
+.profile-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+.profile-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+.profile-form label {
+  display: block;
+  margin-top: 12px;
+  font-weight: 500;
+}
+.form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 5px;
+  transition: 0.2s;
+}
+.form-input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.2);
+}
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.btn-primary {
+  background: #007bff;
+  color: #fff;
+  border: none;
+}
+.btn-primary:hover {
+  background: #0056b3;
+}
+.comment-item {
+  background: #fafafa;
+  padding: 12px 15px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  border-left: 4px solid #007bff;
+}
+.comment-text {
+  margin: 0 0 4px;
+  font-style: italic;
+}
+.comment-meta {
+  font-size: 0.9rem;
+  color: #666;
+}
+.no-comments {
+  color: #777;
+  font-style: italic;
+}
+.messages .alert {
+  background: #e0f7e9;
+  border-left: 4px solid #28a745;
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.mt-2 { margin-top: 10px; }
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #d0d0d0;
+  border-radius: 10px;
+  background: #fdfdfd;
+  font-size: 15px;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.form-input:hover {
+  background: #f9fbff;
+  border-color: #a8c8ff;
+  box-shadow: 0 0 8px rgba(0,123,255,0.15);
+}
+
+.form-input:focus {
+  border-color: #007bff;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(0,123,255,0.15);
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+.profile-form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 0.3px;
+}
+
+.profile-form input[type="password"] {
+  letter-spacing: 0.5px;
+}
+</style>
