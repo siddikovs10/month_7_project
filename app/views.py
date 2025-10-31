@@ -73,7 +73,7 @@ class BookDetailView(View):
             'comments': comments,
         }
         return render(request, 'app/detail.html', context=data)
-    
+
     def post(self, request, pk):
         book = Book.objects.get(pk=pk)
         text = request.POST.get('text')
@@ -122,12 +122,12 @@ class ProfileView(LoginRequiredMixin, View):
         user.save()
         messages.success(request, "Profile updated successfully ✅")
         return redirect('profile')
-    
+
 class LogoutView(View):
     def get(self, request):
         logout(request)
         return redirect('home')
-    
+
 class LoginView(View):
     def get(self, request):
         return render(request, 'app/login.html', {'title': 'Login - Bookly'})
